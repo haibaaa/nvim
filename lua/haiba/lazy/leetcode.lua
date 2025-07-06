@@ -1,3 +1,4 @@
+--[[
 return {
 	"kawre/leetcode.nvim",
 	dependencies = {
@@ -63,7 +64,7 @@ return {
 
 		description = {
 			position = "left",  ---@type lc.position
-			width = "40%",      ---@type lc.size
+			width = "30%",      ---@type lc.size
 			show_stats = true,  ---@type boolean
 		},
 
@@ -93,4 +94,100 @@ return {
 		image_support = false, ---@type boolean
 	},
 }
+]]--
+return {
+  "kawre/leetcode.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+  },
+
+  opts = {
+    arg = "leetcode.nvim",
+    lang = "cpp",
+
+    cn = {
+      enabled = false,
+      translator = true,
+      translate_problems = true,
+    },
+
+    storage = {
+      home = vim.fn.stdpath("data") .. "/leetcode",
+      cache = vim.fn.stdpath("cache") .. "/leetcode",
+    },
+
+    plugins = {
+      non_standalone = false,
+    },
+
+    logging = true,
+    injector = {},
+
+    cache = {
+      update_interval = 60 * 60 * 24 * 7,
+    },
+
+    editor = {
+      reset_previous_code = true,
+      fold_imports = true,
+    },
+
+    console = {
+      open_on_runcode = true,
+      dir = "row",
+      size = {
+        width = "90%",
+        height = "75%",
+      },
+      result = {
+        size = "60%",
+      },
+      testcase = {
+        virt_text = true,
+        size = "40%",
+      },
+    },
+
+    description = {
+      position = "left",
+      width = "30%",
+      show_stats = true,
+    },
+
+    picker = {
+      provider = nil,
+    },
+
+    hooks = {
+      enter = {},
+      question_enter = {
+        function(question)
+          -- Disable LSP diagnostics for LeetCode buffers
+          vim.schedule(function()
+            vim.diagnostic.disable(0)
+            -- Optional: Detach LSP clients too
+            -- for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+            --   vim.lsp.buf_detach_client(0, client.id)
+            -- end
+          end)
+        end,
+      },
+      leave = {},
+    },
+
+    keys = {
+      toggle = { "q" },
+      confirm = { "<CR>" },
+      reset_testcases = "r",
+      use_testcase = "U",
+      focus_testcases = "H",
+      focus_result = "L",
+    },
+
+    theme = {},
+    image_support = false,
+  },
+}
+
 
