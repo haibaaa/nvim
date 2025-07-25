@@ -13,15 +13,25 @@ end
 
 -- Then return the plugin spec
 return {
+	-- {
+	-- 	"vague2k/vague.nvim",
+	-- 	config = function()
+	-- 		require("vague").setup({
+	-- 			-- optional configuration here
+	-- 			transparent = true
+	-- 		})
+	-- 		ColorMyPencils("vague")
+	-- 	end
+	-- },
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		config = function()
-			require("rose-pine").setup({
-				disable_background = true,
-				disable_float_background = true,
-			})
-			ColorMyPencils()
+	 	"rose-pine/neovim",
+	 	name = "rose-pine",
+	 	config = function()
+	 		require("rose-pine").setup({
+	 			disable_background = true,
+	 			disable_float_background = true,
+	 		})
+	 		ColorMyPencils()
 		end,
 	},
 }

@@ -1,3 +1,109 @@
+return {
+   "kawre/leetcode.nvim",
+
+   dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+   },
+
+   opts = {
+      arg = "leetcode.nvim",
+      lang = "cpp",
+
+      cn = {
+         enabled = false,
+         translator = true,
+         translate_problems = true,
+      },
+
+      storage = {
+         home = vim.fn.stdpath("data") .. "/leetcode",
+         cache = vim.fn.stdpath("cache") .. "/leetcode",
+      },
+
+      plugins = {
+         non_standalone = true,
+      },
+
+      logging = true,
+      injector = {},
+
+      cache = {
+         update_interval = 60 * 60 * 24 * 7,
+      },
+
+      editor = {
+         reset_previous_code = true,
+         fold_imports = true,
+      },
+
+      console = {
+         open_on_runcode = true,
+         dir = "row",
+         size = {
+            width = "90%",
+            height = "75%",
+         },
+         result = {
+            size = "60%",
+         },
+         testcase = {
+            virt_text = true,
+            size = "40%",
+         },
+      },
+
+      description = {
+         position = "left",
+         width = "70%",
+         show_stats = true,
+      },
+
+      picker = {
+         provider = nil,
+      },
+
+      hooks = {
+         enter = {},
+         question_enter = {
+            function(question)
+               vim.schedule(function()
+                  vim.diagnostic.enable(false)
+               end)
+            end,
+         },
+         leave = {},
+      },
+
+      keys = {
+         toggle = { "q" },
+         confirm = { "<CR>" },
+         reset_testcases = "r",
+         use_testcase = "U",
+         focus_testcases = "H",
+         focus_result = "L",
+      },
+
+      theme = {},
+      image_support = false,
+   },
+
+   config = function(_, opts)
+      require("leetcode").setup(opts)
+
+      -- Global keybindings
+      vim.keymap.set("n", "<leader>ll", ":Leet list<CR>", { desc = "LeetCode: List problems" })
+      vim.keymap.set("n", "<leader>ld", ":Leet desc<CR>", { desc = "LeetCode: Show description" })
+      vim.keymap.set("n", "<leader>lr", ":Leet run<CR>", { desc = "LeetCode: Run code" })
+      vim.keymap.set("n", "<leader>lt", ":Leet test<CR>", { desc = "LeetCode: Test with input" })
+      vim.keymap.set("n", "<leader>ls", ":Leet submit<CR>", { desc = "LeetCode: Submit solution" })
+      vim.keymap.set("n", "<leader>lc", ":Leet console<CR>", { desc = "LeetCode: Open console" })
+      vim.keymap.set("n", "<leader>lm", ":Leet menu<CR>", { desc = "LeetCode: menu" })
+   end,
+}
+
+
+
 --[[
 return {
 	"kawre/leetcode.nvim",
@@ -94,100 +200,4 @@ return {
 		image_support = false, ---@type boolean
 	},
 }
-]]--
-return {
-  "kawre/leetcode.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-  },
-
-  opts = {
-    arg = "leetcode.nvim",
-    lang = "cpp",
-
-    cn = {
-      enabled = false,
-      translator = true,
-      translate_problems = true,
-    },
-
-    storage = {
-      home = vim.fn.stdpath("data") .. "/leetcode",
-      cache = vim.fn.stdpath("cache") .. "/leetcode",
-    },
-
-    plugins = {
-      non_standalone = false,
-    },
-
-    logging = true,
-    injector = {},
-
-    cache = {
-      update_interval = 60 * 60 * 24 * 7,
-    },
-
-    editor = {
-      reset_previous_code = true,
-      fold_imports = true,
-    },
-
-    console = {
-      open_on_runcode = true,
-      dir = "row",
-      size = {
-        width = "90%",
-        height = "75%",
-      },
-      result = {
-        size = "60%",
-      },
-      testcase = {
-        virt_text = true,
-        size = "40%",
-      },
-    },
-
-    description = {
-      position = "left",
-      width = "30%",
-      show_stats = true,
-    },
-
-    picker = {
-      provider = nil,
-    },
-
-    hooks = {
-      enter = {},
-      question_enter = {
-        function(question)
-          -- Disable LSP diagnostics for LeetCode buffers
-          vim.schedule(function()
-            vim.diagnostic.disable(0)
-            -- Optional: Detach LSP clients too
-            -- for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
-            --   vim.lsp.buf_detach_client(0, client.id)
-            -- end
-          end)
-        end,
-      },
-      leave = {},
-    },
-
-    keys = {
-      toggle = { "q" },
-      confirm = { "<CR>" },
-      reset_testcases = "r",
-      use_testcase = "U",
-      focus_testcases = "H",
-      focus_result = "L",
-    },
-
-    theme = {},
-    image_support = false,
-  },
-}
-
-
+]] --
