@@ -4,6 +4,19 @@ vim.lsp.log_level = "debug"
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Automatically change cwd to the directory of the current file
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = "*",
+    callback = function()
+        local path = vim.fn.expand("%:p:h")
+        if vim.fn.isdirectory(path) == 1 then
+            vim.cmd("cd " .. path)
+        end
+    end,
+    desc = "Auto-CD to current file's directory",
+})
+
+
 -- Safe notify override for fast event context errors
 if not vim._safe_notify_patched then
     local orig_notify = vim.notify
