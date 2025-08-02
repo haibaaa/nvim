@@ -14,4 +14,18 @@ return {
         end
     },
     { 'akinsho/toggleterm.nvim', version = "*", config = true },
+    {
+        "stevearc/dressing.nvim",
+        opts = {
+            input = {
+                border = "rounded",
+            },
+            select = {
+                backend = { "telescope", "builtin" },
+                builtin = {
+                    border = "rounded",
+                },
+            },
+        },
+    },
 }

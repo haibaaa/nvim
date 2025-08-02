@@ -5,7 +5,7 @@
 -- Neovim settings or environment variables, as we observed in debugging.
 -- For guaranteed debug logs, launch Neovim with:
 -- NVIM_LOG_FILE="/tmp/nvim_lsp.log" NVIM_LOG_LEVEL="debug" nvim
-vim.lsp.log_level = "debug"
+-- vim.lsp.log_level = "debug"
 
 -- Define a reusable on_attach function
 -- This function runs every time an LSP client successfully attaches to a buffer.
@@ -79,6 +79,10 @@ return {
                 "gopls",         -- Go language server
                 "clangd",        -- C/C++/Objective-C language server
                 "zls",           -- Zig language server
+                "svelte",        -- Svelte language server
+                "marksman",      -- Markdown language server
+                "html",          -- HTML language server
+                "cssls",         -- CSS language server
                 -- Add any other language servers you frequently use here
                 -- "pyright", "jsonls", "html", "cssls", "marksman", etc.
             },
@@ -160,6 +164,57 @@ return {
             on_attach = on_attach,
             root_dir = require("lspconfig.util").root_pattern("build.zig", "zls.json", ".git"),
             settings = {},
+        })
+
+        -- Svelte Language Server (svelte)
+        require("lspconfig").svelte.setup({
+            on_attach = on_attach,
+            root_dir = require("lspconfig.util").root_pattern("svelte.config.js", "package.json", ".git"),
+            settings = {
+                svelte = {
+                    plugin = {
+                        svelte = {
+                            format = {
+                                enable = true,
+                            },
+                        },
+                    },
+                },
+            },
+        })
+
+        -- Marksman (Markdown Language Server)
+        require("lspconfig").marksman.setup({
+            on_attach = on_attach,
+            root_dir = require("lspconfig.util").root_pattern(".git", ".marksman.toml"),
+        })
+
+        -- HTML Language Server
+        require("lspconfig").html.setup({
+            on_attach = on_attach,
+            settings = {
+                html = {
+                    format = {
+                        enable = true,
+                    },
+                },
+            },
+        })
+
+        -- CSS Language Server
+        require("lspconfig").cssls.setup({
+            on_attach = on_attach,
+            settings = {
+                css = {
+                    validate = true,
+                },
+                scss = {
+                    validate = true,
+                },
+                less = {
+                    validate = true,
+                },
+            },
         })
     end,
 }
