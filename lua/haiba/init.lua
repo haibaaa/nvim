@@ -1,4 +1,4 @@
-vim.lsp.log_level = "debug"
+vim.opt.guicursor = ""
 
 -- Set leader keys before loading plugins
 vim.g.mapleader = " "
